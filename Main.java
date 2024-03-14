@@ -8,6 +8,6 @@ public class Main {
         Card c3 = new Card(1, s0, Rank.COMMON);
         Card c4 = new Card(2, "acard2", Rank.COMMON);
 
-        System.out.println(c1.compareTo(c4));
+        System.out.println(c0.compareTo(c2));
     }
 }

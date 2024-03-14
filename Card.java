@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Card implements Comparable<Card>{
     private long id;
     private String name;
@@ -18,38 +20,32 @@ public class Card implements Comparable<Card>{
     }
 
     @Override
-    public boolean equals(Object otherCard){
-        boolean result = false;
-        if (otherCard == null){
+    public boolean equals(Object o){
+        if (o instanceof Card) {
+            Card newCard = (Card) o;
+            return (newCard.id == this.id) && (newCard.name.equals(this.name))
+                    && (newCard.rank == this.rank);
+        }
+        else{
             return false;
         }
-            Card newCard = (Card)otherCard;
-            if ((newCard.id == this.id) && (newCard.name.equals(this.name))
-                    && (newCard.rank == this.rank)){
-                result = true;
-            }
-
-        return result;
     }
 
     @Override
     public int hashCode(){
-        return java.util.Objects.hash(this.id, this.name, this.rank);
+        // the variables that need to be compared with "equals" method
+        return Objects.hash(this.id, this.name, this.rank);
     }
 
     @Override
     public int compareTo(Card o) {
-        if (this.rank == o.rank && this.name.equals(o.name)
-        && this.id == o.id){
+        // if everything is exactly the same, it's 0
+        if (this.equals(o)){
             return 0;
         }
-        if (this.rank.ordinal() < o.rank.ordinal()){
-            return 1;
-        }
-        if (this.id < o.id){
-            return 1;
-        }
-        if (this.name.compareTo(o.name) > 0){
+        if ((this.rank.ordinal() < o.rank.ordinal()) ||
+                (this.id < o.id) ||
+                 (this.name.compareTo(o.name) > 0)){
             return 1;
         }
         else {
