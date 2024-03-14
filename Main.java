@@ -12,12 +12,29 @@ public class Main {
 //        Card c4 = new Card(2, "acard2", Rank.COMMON);
 //
 //        System.out.println(c0.compareTo(c2));
-        HollomonClient client = new HollomonClient("netsrv.cim.rhul.ac.uk", 1812);
-        List<Card> cards = client.login("science", "avoidhoursame");
+//        HollomonClient client = new HollomonClient("netsrv.cim.rhul.ac.uk", 1812);
+//        List<Card> cards = client.login("science", "avoidhoursame");
+//
+//        for (Card card: cards){
+//            System.out.println(card);
+//        }
+//        System.out.println("___________________");
+//        List<Card> cards1 = client.getCards();
+//        for (Card card: cards1){
+//            System.out.println(card);
+//        }
+//        System.out.println("___________________");
+//        List<Card> cards2 = client.getOffers();
+//        for (Card card: cards2){
+//            System.out.println(card);
+//        }
 
-        for (Card card: cards){
-            System.out.println(card);
-        }
+        Card c0 = new Card(123, "_", Rank.COMMON);
+        Card c1 = new Card(0, "_", Rank.COMMON);
+        HollomonClient hc0 = new HollomonClient("netsrv.cim.rhul.ac.uk", 1812);
+        List<Card> ll0 = hc0.login("science", "avoidhoursame");
+
+        boolean b0 = hc0.buyCard(c0);
 
     }
 }

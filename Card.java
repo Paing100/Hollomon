@@ -15,6 +15,21 @@ public class Card implements Comparable<Card>{
         this.price = 0;
     }
 
+    public Card(long id, String name, Rank rank, long price){
+        this.id = id;
+        this.name = name;
+        this.rank = rank;
+        this.price = price;
+    }
+
+    public long getPrice(){
+        return this.price;
+    }
+
+    public long getID(){
+        return this.id;
+    }
+
     @Override
     public String toString(){
         return "ID: " + this.id + "\nName: " + this.name +
@@ -41,17 +56,18 @@ public class Card implements Comparable<Card>{
 
     @Override
     public int compareTo(Card o) {
-        // if everything is exactly the same, it's 0
-        if (this.equals(o)){
+        if (this.equals(o)) {
             return 0;
         }
-        if ((this.rank.ordinal() < o.rank.ordinal()) ||
-                (this.id < o.id) ||
-                 (this.name.compareTo(o.name) > 0)){
-            return 1;
+        if (this.id != o.id) {
+            return Long.compare(this.id, o.id);
         }
-        else {
-            return -1;
+        int nameComparison = this.name.compareTo(o.name);
+        if (nameComparison != 0) {
+            return nameComparison;
         }
+
+        return Integer.compare(this.rank.ordinal(), o.rank.ordinal());
     }
+
 }

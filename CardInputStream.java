@@ -22,7 +22,7 @@ public class CardInputStream extends InputStream {
         String rankStr = reader.readLine();
         String priceStr = reader.readLine();
 
-        int price = Integer.parseInt(priceStr);
+        //int price = Integer.parseInt(priceStr);
         Rank rank = Rank.valueOf(rankStr);
         long id = Long.parseLong(idStr);
 
@@ -30,11 +30,28 @@ public class CardInputStream extends InputStream {
 
     }
 
+    Card readCardOffers() throws IOException {
+        String tag = reader.readLine();
+        if (tag == null || !tag.equals("CARD")){
+            return null;
+        }
+        String idStr = reader.readLine();
+        String name = reader.readLine();
+        String rankStr = reader.readLine();
+        String priceStr = reader.readLine();
+
+        long price = Long.parseLong(priceStr);
+        Rank rank = Rank.valueOf(rankStr);
+        long id = Long.parseLong(idStr);
+
+        return new Card(id, name, rank, price);
+
+    }
+
     String readResponse() throws IOException {
         String message = this.reader.readLine();
         return message;
     }
-
 
     @Override
     public void close() throws IOException {
