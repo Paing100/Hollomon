@@ -12,11 +12,12 @@ public class Main {
 //        Card c4 = new Card(2, "acard2", Rank.COMMON);
 //
 //        System.out.println(c0.compareTo(c2));
+        HollomonClient client = new HollomonClient("netsrv.cim.rhul.ac.uk", 1812);
+        List<Card> cards = client.login("science", "avoidhoursame");
 
-        HollomonClient hc0 = new HollomonClient("netsrv.cim.rhul.ac.uk", 1812);
-        // The type of n was inferred from your definition of
-        // login. The tester has not verified it.
-        List n = hc0.login("science", "avoidhoursame");
-        hc0.close();
+        for (Card card: cards){
+            System.out.println(card);
+        }
+
     }
 }

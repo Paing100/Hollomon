@@ -6,6 +6,8 @@ public class Card implements Comparable<Card>{
     private Rank rank;
     private long price;
 
+    public Card(){}
+
     public Card(long id, String name, Rank rank){
         this.id = id;
         this.name = name;
