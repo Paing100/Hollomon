@@ -34,7 +34,19 @@ public class Main {
         HollomonClient hc0 = new HollomonClient("netsrv.cim.rhul.ac.uk", 1812);
         List<Card> ll0 = hc0.login("science", "avoidhoursame");
 
-        boolean b0 = hc0.buyCard(c0);
+        boolean b1 = hc0.buyCard(c1);
+
+        System.out.println(b1);
+
+//        HollomonClient client = new HollomonClient("netsrv.cim.rhul.ac.uk", 1812);
+//        client.login("science", "avoidhoursame");
+//        System.out.println("OFFERS ");
+//        System.out.println(client.getOffers());
+//        System.out.println("________________");
+//        System.out.println(client.getCredits());
+//
+
+
 
     }
 }

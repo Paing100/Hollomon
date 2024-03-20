@@ -62,6 +62,9 @@ public class HollomonClient {
         this.writer.newLine();
         this.writer.flush();
         String credit = this.reader.readLine();
+        if (credit.equals("OK") || credit.equals("BYE") || credit.equals("ERROR")){
+            credit = this.reader.readLine();
+        }
         return Long.parseLong(credit);
     }
 
@@ -101,34 +104,45 @@ public class HollomonClient {
     }
 
     public boolean buyCard(Card card) throws IOException {
-        //if (this.getCredits() > card.getPrice()){
+        // having problems with getcredits method because
+        // it's not parsing long but instead it's parsing "OK" or sometimes "BYE"
+
+            // Check if the player has sufficient funds to buy the card
+            long credits = getCredits();
+            if (credits < card.getPrice()) {
+                System.out.println("Insufficient funds to buy the card.");
+                return false;
+            }
+
+            // Send the BUY command with the card ID to the server
             this.writer.write("BUY " + card.getID());
             this.writer.newLine();
             this.writer.flush();
-            String message = this.reader.readLine();
-            if (message.equals("OK")){
-                System.out.println("SUCCESS");
+
+            // Read the server's response
+            String response = this.reader.readLine();
+
+            // Check if the server's response indicates a successful purchase
+            if ("OK".equals(response) && card.getID() != 0) {
+                System.out.println("Successfully purchased the card.");
                 return true;
+            } else if ("ERROR".equals(response)) {
+                System.out.println("Failed to purchase the card: Insufficient funds or concurrent purchase.");
+            } else {
+                System.out.println("Unexpected response from server: " + response);
             }
-            else if (message.equals("ERROR")){
-                System.out.println("ERROR");
-            }
-            else {
-                System.out.println("Unexpected response from server: " + message);
-            }
-        //}
-        //else{
-            System.out.println("Insufficient fund!");
-        //}
-        return false;
-    }
+
+            return false;
+        }
 
     public boolean sellCard(Card card, long price) throws IOException {
-        this.writer.write("SELL " + card.getID() + price);
+        String toServer = "SELL " + card.getID() + " " + price;
+        this.writer.write(toServer);
         this.writer.newLine();
         this.writer.flush();
-
-        if (this.reader.readLine().equals("OK")){
+        String message = this.reader.readLine();
+        if (message.equals("OK")){
+            System.out.println("In sell");
             this.writer.write("SELL");
             return true;
         }
