@@ -106,13 +106,27 @@ public class HollomonClient {
     public boolean buyCard(Card card) throws IOException {
         // having problems with getcredits method because
         // it's not parsing long but instead it's parsing "OK" or sometimes "BYE"
-
+        // -> have to check if the card is available before buying
             // Check if the player has sufficient funds to buy the card
             long credits = getCredits();
             if (credits < card.getPrice()) {
                 System.out.println("Insufficient funds to buy the card.");
                 return false;
             }
+
+            /* checking if the card is still available before sending the request
+             to the server */
+            List<Card> offers = getOffers();
+            boolean found = false;
+            for (Card cards: offers){
+                if (cards.equals(card)){
+                    found = true;
+                }
+            }
+            if (!found){
+                return found;
+            }
+
 
             // Send the BUY command with the card ID to the server
             this.writer.write("BUY " + card.getID());
