@@ -6,14 +6,14 @@ public class Main {
         HollomonClient hc0 = new HollomonClient("netsrv.cim.rhul.ac.uk", 1812);
         List<Card> ll0 = hc0.login("science", "avoidhoursame");
 
-        List<Card> offers = hc0.getOffers();
+        List<Card> offers = hc0.getCards();
+        Card card = new Card(2139, "Moore Building", Rank.UNCOMMON);
         for (Card cards: offers){
             System.out.println(cards);
         }
 
-        System.out.println(hc0.getCredits());
-        Card card = new Card(11914, "Tuke", Rank.COMMON);
-        //boolean buy = hc0.buyCard(card);
+
+
 
 
     }

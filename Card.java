@@ -66,8 +66,6 @@ public class Card implements Comparable<Card>{
         if (nameComparison != 0) {
             return nameComparison;
         }
-
         return Integer.compare(this.rank.ordinal(), o.rank.ordinal());
     }
-
 }

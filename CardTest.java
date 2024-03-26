@@ -1,4 +1,6 @@
+import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -72,5 +74,17 @@ public class CardTest {
             System.out.println(cards);
         }
 
+        HollomonClient client = new HollomonClient("netsrv.cim.rhul.ac.uk", 1812);
+        List<Card> list =  client.login("science", "avoidhoursame");
+
+        for (Card card: list){
+            System.out.println(card);
+        }
+
+        System.out.println("Get Cards");
+        for (Card card: client.getCards()){
+            System.out.println(card);
+        }
+        client.close();
     }
 }
